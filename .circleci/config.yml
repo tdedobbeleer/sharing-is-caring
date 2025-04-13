@@ -34,4 +34,4 @@ jobs:
     steps:
       - run:
           name: docker-deploy
-          command: sh ./scripts/docker_release.sh
+          command: sh ./scripts/dockerbuild.sh
