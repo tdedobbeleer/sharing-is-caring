@@ -1,5 +1,9 @@
 version: 2.1
 
+executors:
+  ws-executor:
+    working_directory: /tmp
+
 workflows:
   version: 2
   build:
@@ -15,10 +19,12 @@ workflows:
 
 jobs:
   "build":
-    working_directory: ~/repo
+    executor: ws-executor
     docker:
       - image: cimg/openjdk:17.0.13
     steps:
+      - run: mkdir -p workspace
+      - run: cd workspace
       - checkout
       - run:
           name: mvn-test
@@ -27,16 +33,18 @@ jobs:
           name: mvn-install
           command: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       - persist_to_workspace:
-          root: ./
+          root: workspace
           paths:
             - target
             - scripts
             - Dockerfile
   "build_and_release":
-    working_directory: ~/repo
+    executor: ws-executor
     docker:
       - image: cimg/base:2025.04
     steps:
+      - attach_workspace:
+            at: /tmp/workspace
       - run:
           name: docker-deploy
-          command: sh ./scripts/docker-build.sh
+          command: sh ./workspace/scripts/docker-build.sh
