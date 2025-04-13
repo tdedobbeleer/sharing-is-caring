@@ -14,6 +14,8 @@ workflows:
               only:
                 - main
       - build_and_release:
+          context:
+            - docker
           requires:
             - build
 
