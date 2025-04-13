@@ -30,9 +30,11 @@ jobs:
       - run:
           name: mvn-test
           command: mvn test
+          working_directory: workspace
       - run:
           name: mvn-install
           command: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+          working_directory: workspace
       - persist_to_workspace:
           root: workspace
           paths:
@@ -48,4 +50,5 @@ jobs:
             at: /tmp/workspace
       - run:
           name: docker-deploy
-          command: sh ./workspace/scripts/docker-build.sh
+          command: sh ./scripts/docker-build.sh
+          working_directory: workspace
