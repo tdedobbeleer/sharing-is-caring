@@ -9,6 +9,7 @@ workflows:
             branches:
               only:
                 - main
+      - build_and_release
 
 jobs:
   "build":
