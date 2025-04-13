@@ -28,7 +28,10 @@ jobs:
           command: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       - persist_to_workspace:
           root: ./
-          paths: target
+          paths:
+            - target
+            - scripts
+            - Dockerfile
   "build_and_release":
     working_directory: ~/repo
     docker:
