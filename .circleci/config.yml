@@ -24,8 +24,9 @@ jobs:
       - image: cimg/openjdk:17.0.13
     steps:
       - run: mkdir -p workspace
+      - checkout:
+          path: workspace
       - run: cd workspace
-      - checkout
       - run:
           name: mvn-test
           command: mvn test
