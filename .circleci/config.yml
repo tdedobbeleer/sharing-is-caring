@@ -51,7 +51,7 @@ jobs:
       - attach_workspace:
             at: /tmp/workspace
       - setup_remote_docker:
-          version: 19.03.13
+          version: edge
           docker_layer_caching: true
       - run:
           name: docker-deploy
