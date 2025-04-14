@@ -9,7 +9,7 @@ RUN apt install telnet -y
 RUN mkdir /usr/app
 RUN echo $JAR > /usr/app/release.info
 
-COPY ./$JAR /usr/app/sic.jar
+COPY $JAR /usr/app/sic.jar
 
 RUN adduser --disabled-login --disabled-password --gecos "" javauser
 USER javauser
