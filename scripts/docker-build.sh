@@ -12,7 +12,7 @@ DATE=$( date '+%y%m%d.%H.%M.%S' )
 
 echo "Pushing docker image version ${DATE} and tagging latest"
 #Get the latest .jar
-JAR="..\target\sharing-is-caring-0.0.1-SNAPSHOT.jar"
+JAR="/tmp/workspace/target/sharing-is-caring-0.0.1-SNAPSHOT.jar"
 
 #Login
 echo "${DOCKER_PASSWORD}" | docker login --username $DOCKER_USER --password-stdin
