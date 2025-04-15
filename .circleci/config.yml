@@ -40,7 +40,7 @@ jobs:
       - persist_to_workspace:
           root: workspace
           paths:
-            - target
+            - target/sharing-is-caring-0.0.1-SNAPSHOT.jar
             - scripts
             - Dockerfile
   "build_and_release":
@@ -53,6 +53,10 @@ jobs:
       - setup_remote_docker:
           version: edge
           docker_layer_caching: true
+      - run:
+          name: list-files
+          command: ls -l
+          working_directory: workspace
       - run:
           name: docker-deploy
           command: sh ./scripts/docker-build.sh
