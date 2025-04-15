@@ -7,7 +7,7 @@ RUN apt update
 RUN apt install telnet -y
 
 RUN mkdir /usr/app
-RUN echo $JAR > /usr/app/release.info
+#RUN echo $JAR > /usr/app/release.info
 
 COPY $JAR /usr/app/sic.jar
 
