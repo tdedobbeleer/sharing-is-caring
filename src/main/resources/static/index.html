@@ -115,21 +115,18 @@
                 gauge.maxValue = 2000; // set max gauge value
                 gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
                 gauge.animationSpeed = 32; // set animation speed (32 is default value)
-                gauge.set(0); // set actual value
-                fetchToGridValue();
-                setInterval(fetchToGridValue,3000);
+                gauge.set(0); // set provisional value
 
-                function fetchToGridValue() {
-                    fetch("/energy/p1/grid/state")
-                        .then((response) => response.text())
-                        .then((r) => {
-                          gauge.set(r); // set actual value
-                          value.textContent=r;
-                        }).catch(function(err) {
-                          gauge.set(0); // set actual value
-                          value.textContent=0;
-                        });
-                }
+                const evtSource = new EventSource("/energy/p1/grid/state");
+                evtSource.onmessage = (data) => {
+                    var state = JSON.parse(event.data);
+                    gauge.set(state.value); // set actual value
+                    value.textContent=state.value + " " + state.description;
+                };
+                evtSource.onerror = (err) => {
+                    value.textContent="Error getting values.";
+                    console.error("EventSource failed:", err);
+                };
         </script>
     </body>
 </html>

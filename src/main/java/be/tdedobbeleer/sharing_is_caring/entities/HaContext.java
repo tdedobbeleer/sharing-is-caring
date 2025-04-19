@@ -1,4 +1,4 @@
-package be.tdedobbeleer.sharing_is_caring.pojo;
+package be.tdedobbeleer.sharing_is_caring.entities;
 
 public class HaContext {
     private String id;
